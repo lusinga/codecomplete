@@ -7,7 +7,7 @@
     "publisher": "Xulun",
     "repository": {
         "type": "git",
-        "url": "git@code.aliyun.com:lusinga/testlsp.git"
+        "url": "https://github.com/lusinga/codecomplete.git"
     },
     "engines": {
         "vscode": "^1.39.2"

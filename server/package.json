@@ -9,7 +9,7 @@
     },
     "repository": {
         "type": "git",
-        "url": "git@code.aliyun.com:lusinga/testlsp.git"
+        "url": "https://github.com/lusinga/codecomplete.git"
     },
     "dependencies": {
         "log4js": "^4.3.1",
