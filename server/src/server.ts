@@ -24,7 +24,7 @@ import { HandlerResult } from 'vscode-jsonrpc';
 import { configure, getLogger } from "log4js";
 configure({
 	appenders: {
-		lsp_demo: {
+		alios_coder: {
 			type: "dateFile",
 			filename: "c:\\temp\\lsp",
 			pattern: "yyyy-MM-dd-hh.log",
