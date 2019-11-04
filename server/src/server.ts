@@ -31,13 +31,20 @@ configure({
 			alwaysIncludePattern: true,
 		},
 	},
-	categories: { default: { appenders: ["lsp_demo"], level: "debug" } }
+	categories: { default: { appenders: ["alios_coder"], level: "debug" } }
 });
-const logger = getLogger("lsp_demo");
+const logger = getLogger("alios_coder");
 
 let connection = createConnection(ProposedFeatures.all);
 
 let documents: TextDocuments = new TextDocuments();
+
+const axios = require('axios');
+
+const instance = axios.create({
+	baseURL: 'http://127.0.0.1:30000',
+	timeout: 1000
+});
 
 connection.onInitialize((params: InitializeParams) => {
 	let capabilities = params.capabilities;
@@ -69,12 +76,20 @@ connection.onInitialize((params: InitializeParams) => {
 
 connection.onInitialized(() => {
 	logger.debug('onInitialized!');
-	connection.window.showInformationMessage('Hello World! form server side');
+	connection.window.showInformationMessage('Welcome to use AliOS Coder!');
 });
 
 connection.onCompletion(
 	(_textDocumentPosition: TextDocumentPositionParams): CompletionItem[] => {
 		logger.debug('onCompletion');
+		instance.post('/complete', { code: '#include <iostream>试试中文行不行' })
+			.then(function (response) {
+				console.log('complete: ' + response.data);
+				connection.window.showInformationMessage('complete: ' + response.data);
+			})
+			.catch(function (error) {
+				console.log(error);
+			});
 		return [
 			{
 				label: 'TextView' + _textDocumentPosition.position.character,
@@ -124,7 +139,6 @@ connection.onShutdown(() => {
 
 connection.onExit(() => {
 	logger.debug('VSCode client exited!');
-	//mdn Object.prototype;
 });
 
 documents.onDidOpen(
@@ -149,7 +163,7 @@ documents.onDidChangeContent(
 
 connection.onDidChangeWatchedFiles(_change => {
 	// Monitored files have change in VSCode
-	connection.console.log('We received an file change event'+_change);
+	connection.console.log('We received an file change event' + _change);
 });
 
 // Make the text document manager listen on the connection
