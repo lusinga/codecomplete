@@ -1,6 +1,6 @@
 {
-    "name": "lsp_demo_server",
-    "description": "A demo language server",
+    "name": "alios_complete_server",
+    "description": "AliOS Code Completion Server",
     "author": "Xulun",
     "license": "MIT",
     "version": "1.0.0",
